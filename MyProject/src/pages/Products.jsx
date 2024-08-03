@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import ProductCard from './ProductCard'
+import LoadingIndicator from './LoadingIndicator'
+import ErrorIndicator from './ErrorIndicator'
 
 
 const URL = `https://jsonplaceholder.typicode.com/posts`
@@ -36,7 +38,8 @@ useEffect(()=>{
 },[page])
 
 console.log(data)
-
+if(loading) return <LoadingIndicator />
+if(error) return <ErrorIndicator />
 
   return (
     <div>
