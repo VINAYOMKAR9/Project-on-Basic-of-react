@@ -1,9 +1,8 @@
-import React from 'react'
-
+import {PropagateLoader} from 'react-spinners'
 const LoadingIndicator = () => {
   return (
     <div>
-      
+      <PropagateLoader/>
     </div>
   )
 }

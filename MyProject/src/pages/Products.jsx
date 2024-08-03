@@ -3,6 +3,7 @@ import axios from 'axios'
 import ProductCard from './ProductCard'
 import LoadingIndicator from './LoadingIndicator'
 import ErrorIndicator from './ErrorIndicator'
+import Pagination from './Pagination'
 
 
 const URL = `https://jsonplaceholder.typicode.com/posts`
@@ -41,22 +42,58 @@ console.log(data)
 if(loading) return <LoadingIndicator />
 if(error) return <ErrorIndicator />
 
+const handleSubmit=(e)=>{
+    e.preventDefault()
+    const formData=new FormData(e.target)
+
+    let newData={
+        id:data.length +1,
+        title:formData.get('title'),
+        body:formData.get('body'),
+    }
+    console.log(newData)
+    setData([newData,...data])
+    e.target.reset()
+    
+}
+
+const handleDelete = (id)=>{
+    let filterData = data.filter((el)=>el.id != id)
+    setData(filterData)
+    
+}
+
   return (
     <div>
         <h1>Products</h1>
 
-        {loading && <h1>Loading...</h1>}
-        {error&& <h1>Something went wrong...</h1>}
+        <form onSubmit={handleSubmit}>
+            <input
+             type='text' 
+             placeholder='Enter title...'
+             name='title'
+            />
+            <input
+             type='text' 
+             placeholder='Enter Body...'
+             name='body'
+            />
+            <button type='submit'>Submit</button>
+
+        </form>
+
         
         <div>
             {
                 data && data.map((el)=>{
                     return (
-                        <ProductCard key={el.id} {...el} />
+                        <ProductCard key={el.id} {...el} handleDelete={handleDelete} />
                     )
                 })
             }
         </div>
+
+        <Pagination page={page} setPage={setPage} />
 
     </div>
   )
