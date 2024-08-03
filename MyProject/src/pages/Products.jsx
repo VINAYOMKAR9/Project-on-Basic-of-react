@@ -11,7 +11,7 @@ const  getdata = async(page)=>{
     return await axios.get(URL,{
         params:{
             _page:page,
-        _limit:10
+        _limit:5
         }
     })
 
@@ -93,7 +93,7 @@ const handleDelete = (id)=>{
             }
         </div>
 
-        <Pagination page={page} setPage={setPage} />
+        <Pagination page={page} setPage={setPage} totalPage={21} />
 
     </div>
   )
